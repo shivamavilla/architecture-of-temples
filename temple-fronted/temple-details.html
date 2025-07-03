@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Temple Details</title>
+  <link rel="stylesheet" href="styletemple.css" />
+  <link rel="stylesheet" href="styles2.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Noto Serif', serif;
+      background: #fffdf7;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    .nav-buttons {
+      background: linear-gradient(to right, #f5b042, #e57e25);
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .btn-nav {
+      text-decoration: none;
+      color: white;
+      background: #333;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .btn-nav:hover {
+      background: #eaeaea;
+      color: #333;
+      transform: scale(1.05);
+    }
+
+    h1#templeTitle, h1#heading {
+      text-align: center;
+      font-size: 2rem;
+      margin-top: 20px;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    #templeState {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #777;
+      margin-bottom: 20px;
+      animation: fadeIn 1s ease 0.3s forwards;
+    }
+
+    .temple-info {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.6s ease-out;
+    }
+
+    .temple-info.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .temple-info img {
+      width: 100%;
+      max-width: 700px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .temple-info h2 {
+      color: #c75b12;
+      margin-top: 20px;
+    }
+
+    .temple-info h4, .temple-info ul, .temple-info p {
+      margin-left: 10px;
+    }
+
+    .temple-info ul li {
+      margin-bottom: 5px;
+    }
+
+    .temple-timeline {
+      margin-top: 40px;
+      padding: 20px;
+      background: #f7f7f7;
+      border-left: 5px solid #e57e25;
+      border-radius: 8px;
+    }
+
+    .temple-timeline h2 {
+      text-align: center;
+      color: #444;
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .timeline-event {
+      background: white;
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 6px;
+    }
+
+    .timeline-event h4 {
+      margin: 0;
+      color: #e57e25;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 768px) {
+      .nav-buttons {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .btn-nav {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="nav-buttons">
+    <a href="index.html" class="btn-nav">🏠 Back to Home</a>
+    <a href="index1.html" class="btn-nav">🗺️ Back to Map</a>
+  </div>
+
+  <h1 id="heading"></h1>
+  <div id="temple-info"></div>
+
+  <h1 id="templeTitle"></h1>
+  <p id="templeState"></p>
+
+  <!-- JS Script for setting title/state -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const state = urlParams.get("state");
+      const temple = urlParams.get("temple");
+
+      if (state && temple) {
+        document.getElementById("templeTitle").textContent = temple.replace(/\b\w/g, l => l.toUpperCase());
+        document.getElementById("templeState").textContent = `Located in: ${state}`;
+      } else if (state) {
+        document.getElementById("templeTitle").textContent = `Temples in ${state}`;
+      } else {
+        document.getElementById("templeTitle").textContent = "Temple Not Found";
+      }
+    });
+  </script>
+
+  <!-- Temple data rendering -->
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const stateName = params.get('state');
+    const templeQuery = params.get('temple')?.toLowerCase().trim().replace(/\s+/g, ' ');
+
+    fetch(`http://localhost:5001/api/temples/${stateName}`)
+      .then(response => {
+        if (!response.ok) throw new Error("Temples not found for this state");
+        return response.json();
+      })
+      .then(data => {
+        const templeInfoDiv = document.getElementById('temple-info');
+        templeInfoDiv.innerHTML = "";
+
+        const filteredTemples = templeQuery
+          ? data.filter(t => t.templeName.toLowerCase().trim().replace(/\s+/g, ' ').includes(templeQuery))
+          : data;
+
+        if (filteredTemples.length === 0) {
+          document.getElementById("heading").textContent = "Temple Not Found";
+          templeInfoDiv.innerHTML = "<p>No details available for this temple.</p>";
+          return;
+        }
+
+        filteredTemples.forEach((temple, index) => {
+          const section = document.createElement('section');
+          section.className = "temple-info";
+          section.style.animationDelay = `${0.2 + index * 0.2}s`;
+
+          document.getElementById("heading").textContent = `Architecture History of ${temple.templeName}`;
+
+          section.innerHTML = `
+            <img src="${temple.imageUrl}" alt="${temple.templeName}" />
+            <h2>🛕 Unique Architectural Highlight</h2>
+            <h4>${temple.uniqueArchitecture || "Not available"}</h4>
+            <h2>Temple Architecture Style</h2>
+            <h4>${temple.architecturalStyle}</h4>
+            <h2>Special Elements</h2>
+            <h4>${temple.specialElements}</h4>
+            <h2>Festival Highlight</h2>
+            <h4>${temple.festivalHighlight}</h4>
+            <h2>Construction Technique</h2>
+            <h4>${temple.constructionTechnique}</h4>
+            <h2>Spiritual Significance</h2>
+            <h4>${temple.spiritualSignificance}</h4>
+            <h2>UNESCO Status</h2>
+            <h4>${temple.UNESCOStatus}</h4>
+            <h2>Alignment With Astronomy</h2>
+            <h4>${temple.alignmentWithAstronomy}</h4>
+            <h2>✨ Special Features</h2>
+            <ul>${temple.specialFeatures.split(';').map(f => `<li>${f.trim()}</li>`).join('')}</ul>
+            <h2>👑 Built By (King/Dynasty)</h2>
+            <h4>${temple.builtBy}</h4>
+            <h2>🏛 Marbles or Materials Used</h2>
+            <h4>${temple.materialsUsed}</h4>
+            <h2>💡 Idea Behind the Architecture</h2>
+            <h4>${temple.inspiration}</h4>
+            <p><strong>Image Source:</strong> <a href="${temple.sourceUrl}" target="_blank">Wikipedia - ${temple.templeName}</a></p>
+          `;
+
+          templeInfoDiv.appendChild(section);
+
+          if (temple.timeline?.length) {
+            const timelineSection = document.createElement('section');
+            timelineSection.className = 'temple-timeline';
+            timelineSection.innerHTML = `
+              <h2>🕰️ Timeline of Construction & Events</h2>
+              <div class="timeline">
+                ${temple.timeline.map(event => `
+                  <div class="timeline-event">
+                    <h4>${event.year}</h4>
+                    <p>${event.description}</p>
+                  </div>`).join('')}
+              </div>
+              <div>
+                <h1>Virtual Tour</h1>
+                ${temple.virtualTour.embedCode}
+              </div>
+              <div>
+                <h2>📱 Scan QR Code for location</h2>
+                <img style="width:300px; border-radius: 12px;" src="${temple.qrCodeImage.base64}" alt="QR Code" />
+              </div>
+            `;
+            templeInfoDiv.appendChild(timelineSection);
+          }
+        });
+      })
+      .catch(err => {
+        document.getElementById('temple-info').innerHTML = `<p>${err.message}</p>`;
+      });
+  </script>
+
+  <!-- Scroll Animation -->
+  <script>
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll('.temple-info').forEach(el => observer.observe(el));
+    });
+  </script>
+</body>
+</html>

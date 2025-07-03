@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DISCOVER THE ARCHITECTURE OF SOME FAMOUS TEMPLES IN BHARAT</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="Heading">
+    <h1><span>THE ARCHITECTURE OF FAMOUS TEMPLES IN BHARAT</span></h1>
+  </div>
+
+  <section>
+    <h1>What is the importance of TEMPLE ARCHITECTURE?</h1>
+    <p>
+      Today, Indian temple <u>architecture</u> styles persist to attract devotees and tourists worldwide, offering glimpses into India's rich historical, architectural, and religious traditions. They provide a place for worship, spiritual contemplation, and participation in religious rituals and festivities.
+    </p>
+  </section>
+
+  <div class="marquee-wrapper">
+    <div class="marquee-content">
+      <img src="https://blog.novatr.com/hubfs/Temple%20Architecture%20in%20India.webp" />
+      <img src="https://www.buildingmaterialreporter.com/uploads/blogs/files/rammandir1.jpeg" />
+      <img src="https://english.cdn.zeenews.com/sites/default/files/2023/06/19/1223238-kedarnath.jpg" />
+      <img src="https://images.travelandleisureasia.com/wp-content/uploads/sites/2/2020/02/Badrinath-feature.jpg" />
+      <img src="https://www.savaari.com/blog/wp-content/uploads/2022/11/Temple_de_Minakshi01.jpg" />
+      <img src="https://images.squarespace-cdn.com/content/v1/5bfc88d3cef372ae240195af/1550650743015-T2EHYLZPAPOBMGX6IGKN/ranakpur-temple-jain-temple-rajasthan-india-14722705.jpg" />
+    </div>
+  </div>
+
+  <div class="button-container">
+    <button onclick="location.href='index1.html'">LET'S EXPLORE!</button>
+  </div>
+
+  <!-- Chatbot Icon -->
+  <div class="chatbot-icon" onclick="toggleChatbot()">💬</div>
+
+  <!-- Chatbot Window -->
+  <div class="chatbot-window" id="chatbot">
+    <div class="chat-header">🛕 TempleGPT</div>
+    <div class="chat-body" id="chatBody"></div>
+    <div class="chat-input-area">
+      <input type="text" id="userInput" placeholder="Ask about temple architecture..." onkeydown="handleKey(event)" />
+      <label for="imageInput" class="image-icon">📷</label>
+      <input type="file" id="imageInput" accept="image/*" style="display: none;" />
+      <button id="micBtn" onclick="startVoiceInput()">🎤</button>
+      <button onclick="sendMessage()">➤</button>
+    </div>
+  </div>
+
+  <script>
+    // Optional: Fetch data from your backend if needed (ensure route exists)
+    fetch("http://localhost:5001/api/temples")
+      .then(response => response.json())
+      .then(data => console.log("Temples fetched:", data))
+      .catch(error => console.error("Error fetching data:", error));
+
+    const recognition = window.SpeechRecognition || window.webkitSpeechRecognition
+      ? new (window.SpeechRecognition || window.webkitSpeechRecognition)()
+      : null;
+
+    function startVoiceInput() {
+      if (!recognition) {
+        alert("Speech recognition not supported in this browser.");
+        return;
+      }
+
+      recognition.lang = "en-US";
+      recognition.start();
+
+      recognition.onstart = () => console.log("Voice recognition started...");
+      recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        document.getElementById("userInput").value = transcript;
+        sendMessage();
+      };
+      recognition.onerror = (event) => {
+        console.error("Speech recognition error:", event.error);
+      };
+    }
+
+    function toggleChatbot() {
+      const chat = document.getElementById("chatbot");
+      chat.style.display = chat.style.display === "flex" ? "none" : "flex";
+    }
+
+    function handleKey(event) {
+      if (event.key === "Enter") sendMessage();
+    }
+
+    function appendMessage(message, sender = "bot") {
+      const body = document.getElementById("chatBody");
+      const div = document.createElement("div");
+      div.className = `chat-message ${sender === "user" ? "user-message" : "bot-message"}`;
+      div.textContent = message;
+      body.appendChild(div);
+      body.scrollTop = body.scrollHeight;
+    }
+
+    let loadingDiv;
+    function showLoading() {
+      const body = document.getElementById("chatBody");
+      loadingDiv = document.createElement("div");
+      loadingDiv.className = "chat-message bot-message loading";
+      loadingDiv.innerHTML = `<span class="dot"></span><span class="dot"></span><span class="dot"></span>`;
+      body.appendChild(loadingDiv);
+      body.scrollTop = body.scrollHeight;
+    }
+
+    function removeLoading() {
+      if (loadingDiv) loadingDiv.remove();
+    }
+
+    function sendMessage() {
+      const input = document.getElementById("userInput");
+      const userText = input.value.trim();
+      if (!userText) return;
+      appendMessage("🧑 " + userText, "user");
+      showLoading();
+
+      fetch("http://localhost:5001/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: userText }),
+      })
+        .then(res => res.json())
+        .then(data => {
+          removeLoading();
+          if (data.reply) {
+            appendMessage("🤖 Bot: " + data.reply, "bot");
+          } else {
+            appendMessage("🤖 Bot: GPT didn't respond properly.", "bot");
+            console.error("GPT error:", data);
+          }
+        })
+        .catch(err => {
+          removeLoading();
+          appendMessage("🤖 Bot: Network error.", "bot");
+          console.error("Fetch error:", err);
+        });
+
+      input.value = "";
+    }
+  </script>
+
+</body>
+</html>

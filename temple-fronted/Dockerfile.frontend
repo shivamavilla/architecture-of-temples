@@ -1,0 +1,19 @@
+# Use lightweight Nginx to serve static files
+FROM nginx:alpine
+
+# Remove default nginx page
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copy all your frontend files
+COPY ./*.html /usr/share/nginx/html/
+COPY ./*.css /usr/share/nginx/html/
+COPY ./*.js /usr/share/nginx/html/
+COPY ./*.jpg /usr/share/nginx/html/
+COPY ./*.jpeg /usr/share/nginx/html/
+COPY ./*.glb /usr/share/nginx/html/
+
+# Expose port 80
+EXPOSE 80
+
+# Run Nginx in foreground
+

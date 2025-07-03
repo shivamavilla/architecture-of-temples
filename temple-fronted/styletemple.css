@@ -1,0 +1,178 @@
+/* Importing the Noto Serif font */
+body {
+    font-family: 'Noto Serif', serif;
+    margin: 0;
+    padding: 0;
+    background-color: #fefcf9;
+    color: #2f2f2f;
+    line-height: 1.7;
+  }
+  
+  /* Page heading */
+  #heading {
+    text-align: center;
+    padding: 30px 15px;
+    font-size: 2.5rem;
+    color: #4b2e2e;
+    border-bottom: 2px solid #ddd;
+    background: #fff8f0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  
+  /* Temple Section Container */
+  .temple-info {
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transform: translateY(50px);
+    animation: fadeInUp 1s ease forwards;
+  }
+  
+  /* Image Styling */
+  .img-css {
+    width: 100%;
+    max-width: 600px;
+    display: block;
+    margin: 0 auto 20px auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Section Headings */
+  .temple-info h2 {
+    color: #7a3e00;
+    margin-top: 25px;
+    font-size: 1.5rem;
+  }
+  
+  /* Lists */
+  .temple-info ul {
+    padding-left: 20px;
+  }
+  
+  .temple-info li {
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  
+  /* Source Link */
+  .temple-info a {
+    color: #1a237e;
+    text-decoration: underline;
+  }
+  
+  .temple-info a:hover {
+    color: #ff5722;
+  }
+  
+  /* Timeline Section */
+  .temple-timeline {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #f4f1ec;
+    border-left: 4px solid #a97428;
+    border-radius: 10px;
+  }
+  
+  .temple-timeline h2 {
+    color: #6a4e2d;
+    font-size: 1.4rem;
+    margin-bottom: 20px;
+  }
+  
+  .timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .timeline-event {
+    background: #fff;
+    padding: 15px 20px;
+    border-left: 4px solid #a97428;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  }
+  
+  .timeline-event h4 {
+    margin: 0;
+    color: #6a1b1b;
+    font-size: 1.1rem;
+  }
+  
+  /* Animations */
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Scroll Reveal (Optional with JS Observer — see below) */
+  .scroll-reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease-out;
+  }
+  
+  .scroll-reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Responsive */
+  @media screen and (max-width: 768px) {
+    #heading {
+      font-size: 2rem;
+      padding: 20px;
+    }
+  
+    .temple-info {
+      padding: 20px;
+      margin: 30px 15px;
+    }
+  
+    .img-css {
+      width: 100%;
+    }
+  }
+
+  
+
+  /* Navigation Buttons */
+.nav-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    background-color: #fff8f0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .btn-nav {
+    text-decoration: none;
+    background-color: #a97428;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-nav:hover {
+    background-color: #7a5317;
+  }
+ 
+  
+  /* iframe {
+    border: 0;
+    width: 80vw;
+    height: 60vh;
+    margin-top: 30px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  } */

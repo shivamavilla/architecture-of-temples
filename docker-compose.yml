@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "3000:80"
+
+  backend:
+    build:
+      context: ./temple-backend
+    ports:
+      - "5000:3001"

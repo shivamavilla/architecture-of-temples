@@ -1,0 +1,156 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    line-height: 1.6;
+}
+
+/* Header */
+header {
+    background-color: #000;
+    color: white;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Sections */
+section {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+/* Headings */
+h2 {
+    color: #333;
+    text-align: center;
+}
+
+/* Paragraphs */
+p {
+    color: #555;
+    text-align: justify;
+}
+
+/* Image Gallery */
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.gallery img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.gallery img:hover {
+    transform: scale(1.1);
+}
+
+/* Read More Button */
+button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 10px auto;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+/* Read More Content */
+#readMoreContent {
+    display: none;
+}
+
+/* Back Button */
+.back-button {
+    display: inline-block;
+    background-color: #b39c9a;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    margin: 20px;
+    border-radius: 5px;
+}
+
+.back-button:hover {
+    background-color: rgb(172, 141, 141);
+}
+
+
+
+
+/* Center the dynamic temple content */
+#temple-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 20px;
+  }
+  
+  /* Style each section for readability */
+  /*.temple-info,
+  .temple-timeline {
+    width: 90%;
+    max-width: 800px;
+    background-color: white;
+    padding: 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    text-align: justify;
+  }
+  
+  /* Center headings */
+  /*.temple-info h2,
+  .temple-timeline h2 {
+    text-align: center;
+  }
+  
+  /* Image styling */
+  /*.temple-info img {
+    display: block;
+    margin: 0 auto 20px;
+    border-radius: 5px;
+    max-width: 100%;
+  }
+  
+  /* Timeline layout */
+  /*.timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .timeline-event {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-left: 4px solid #333;
+    border-radius: 5px;
+  }
+  
+  .timeline-event h4 {
+    margin: 0;
+    color: #333;
+  } 

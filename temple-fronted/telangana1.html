@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thousand Pillar Temple</title>
+    <link rel="stylesheet" href="styles2.css">
+</head>
+<body>
+
+    <header>
+        <h1>Thousand Pillar Temple</h1>
+    </header>
+
+    <a href="index1.html" class="back-button">Back</a>
+
+    <section>
+        <h2>ABOUT</h2>
+        <p>
+            The **Thousand Pillar Temple**, also known as the **Rudreshwara Swamy Temple**, is a **historic Hindu temple located in Hanamkonda, Telangana**. Built during the **Kakatiya dynasty** in the **12th century**, this temple is a fine example of **Kakatiya architecture**, showcasing intricate carvings, magnificent sculptures, and a unique **star-shaped structure**.
+        </p>
+        <p>
+            The temple is dedicated to **Lord Shiva, Lord Vishnu, and Lord Surya**, making it a **Trikuta (three-shrined) temple**. The temple stands as a testament to the **rich cultural heritage** and **architectural brilliance** of medieval India.
+        </p>
+
+        <div id="readMoreContent">
+            <p>
+                The temple is **famous for its thousand intricately carved pillars**, none of which obstruct the view of the deity. Each pillar is unique, depicting **mythological scenes, floral patterns, and artistic motifs**.
+            </p>
+            <p>
+                The **Nandi Mandapam**, featuring a huge monolithic **Nandi (sacred bull of Shiva)**, is another major attraction of the temple.
+            </p>
+            <p>
+                The temple was **partially destroyed by invaders**, but restoration efforts have helped preserve its grandeur. Today, it is **one of the most visited heritage sites in Telangana**.
+            </p>
+        </div>
+
+        <button onclick="toggleReadMore()">Read More</button>
+    </section>
+
+    <section>
+        <h2>HISTORY</h2>
+        <p>
+            The **Thousand Pillar Temple was built in 1163 AD by Rudra Deva**, a ruler of the **Kakatiya dynasty**. It was **designed in the Chalukyan and Kakatiyan architectural styles**, highlighting **intricate stonework and exquisite craftsmanship**.
+        </p>
+        <p>
+            The temple served as a **cultural and spiritual hub** during the Kakatiya era. It was heavily damaged during **Muslim invasions** but has been partially restored in modern times.
+        </p>
+
+        <div class="gallery">
+            <img src="https://www.holidify.com/images/cmsuploads/compressed/Thousand_Pillar_Temple_20200427204242.jpg" alt="Thousand Pillar Temple">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Thousand_Pillars_Temple.jpg/800px-Thousand_Pillars_Temple.jpg" alt="Temple Entrance">
+        </div>
+    </section>
+
+    <section>
+        <h2>ARCHITECTURE</h2>
+        <p>
+            The temple is built in the **Kakatiya style of architecture**, featuring:
+        </p>
+        <ul>
+            <li>A **unique star-shaped platform**</li>
+            <li>**Exquisite carvings on each of the thousand pillars**</li>
+            <li>A **massive monolithic Nandi sculpture**</li>
+            <li>Three sanctums dedicated to **Shiva, Vishnu, and Surya**</li>
+            <li>Beautifully sculpted **intricate stone windows and doorways**</li>
+        </ul>
+        <p>
+            The temple complex also includes a **large temple tank**, adding to its grandeur.
+        </p>
+
+        <div class="gallery">
+            <img src="https://www.nativeplanet.com/photos/650x1000x100/2015/09/architectural-magnificence.jpg" alt="Intricate carvings">
+            <img src="https://images.indianexpress.com/2023/05/Thousand-Pillar-Temple-1.jpg" alt="Temple Structure">
+        </div>
+    </section>
+
+    <section>
+        <h2>SPIRITUAL CONCEPTS</h2>
+        <p>
+            The temple reflects **Hindu spiritual principles** and the **concept of divine trinity**, with shrines dedicated to **Shiva, Vishnu, and Surya**.
+        </p>
+        <p>
+            The **Thousand Pillars** symbolize the **infinite forms of the divine**, encouraging devotees to explore different paths of spiritual enlightenment.
+        </p>
+    </section>
+
+    <script>
+        function toggleReadMore() {
+            const readMoreContent = document.getElementById('readMoreContent');
+            const buttonText = document.querySelector('button');
+
+            if (readMoreContent.style.display === 'none' || readMoreContent.style.display === '') {
+                readMoreContent.style.display = 'block';
+                buttonText.textContent = 'Read Less';
+            } else {
+                readMoreContent.style.display = 'none';
+                buttonText.textContent = 'Read More';
+            }
+        }
+    </script>
+
+</body>
+</html>
